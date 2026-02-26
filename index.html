@@ -1,23 +1,439 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+
+  <!-- Schema.org 구조화 데이터 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "차량 리스 비교 견적 센터",
+    "description": "2026년도 최신 국산차 및 수입차 리스 상품 비교 분석 및 견적 서비스 제공. 합리적인 가격으로 신차를 이용하세요.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "서울특별시 강남구 테헤란로 XXX-XX",
+      "addressLocality": "서울특별시",
+      "addressRegion": "서울",
+      "postalCode": "12345",
+      "addressCountry": "KR"
+    },
+    "telephone": "1661-XXXX",
+    "url": "https://www.example.com/car-lease-comparison",
+    "image": "https://www.example.com/images/main-car.jpg",
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "priceRange": "₩100,000-₩1,000,000",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "차량 리스 및 렌트 서비스",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"국산차 신차 리스"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"수입차 신차 리스"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"장기렌트 비교 견적"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"중고차 리스 승계"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"법인/개인사업자 리스"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"초기비용 없는 무보증 리스"}}
+      ]
+    }
+  }
+  </script>
+
+  <!-- CSS 스타일링 -->
+  <style>
+    /* 폰트, 기본 레이아웃 설정 */
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f7f9fc; color: #333; line-height: 1.8; }
+    header { background-color: #ffffff; padding: 20px 0; border-bottom: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    main { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+    section { margin-bottom: 40px; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+    h1, h2, h3 { color: #2c3e50; font-weight: 700; }
+    h1 { text-align: center; font-size: 2.5em; margin-bottom: 10px; }
+    h2 { border-bottom: 2px solid #e0e6f0; padding-bottom: 10px; margin-bottom: 25px; font-size: 2em; }
+    h3 { color: #34495e; margin-top: 30px; font-size: 1.5em; }
+
+    /* 내비게이션 스타일 */
+    nav ul { list-style: none; padding: 0; text-align: center; margin-top: 10px; display: flex; justify-content: center; gap: 20px; }
+    nav a { text-decoration: none; color: #2980b9; font-weight: 600; font-size: 1.1em; padding: 8px 15px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+    nav a:hover { background-color: #eaf1f7; color: #1f618d; }
+
+    /* 핵심 CTA 버튼 스타일 */
+    .cta-button { display: inline-block; background-color: #3498db; color: #ffffff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-size: 1.2em; font-weight: 700; text-align: center; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .cta-button:hover { background-color: #2980b9; transform: translateY(-2px); }
+
+    /* 정보 테이블 스타일 */
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
+    th, td { border: 1px solid #ecf0f1; padding: 15px; text-align: center; }
+    th { background-color: #f0f4f7; color: #2c3e50; font-weight: 600; }
+    td { background-color: #ffffff; }
+    tr:nth-child(even) { background-color: #f9fbfc; }
+
+    /* 리스트 스타일 */
+    ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
+    li { margin-bottom: 10px; }
+
+    /* FAQ 및 상세 정보 스타일 */
+    .content-block { border-left: 5px solid #3498db; padding-left: 20px; margin-top: 15px; background-color: #f9fcfc; border-radius: 8px; padding: 20px; }
+    .content-block strong { color: #2c3e50; font-weight: 700; }
+    .keyword-list { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin-top: 15px; }
+    .keyword-list li { background-color: #ecf0f1; border-radius: 20px; padding: 8px 15px; font-size: 0.9em; color: #555; }
+
+    /* 폼 스타일 */
+    form { background-color: #f0f4f7; padding: 30px; border-radius: 10px; margin-top: 30px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; }
+    input[type="text"], input[type="tel"], input[type="email"], textarea, select { width: calc(100% - 22px); padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+    textarea { resize: vertical; }
+    .form-group { margin-bottom: 20px; }
+    .form-actions { text-align: center; margin-top: 20px; }
+
+    /* 시각화 요소 (그래프 placeholder) */
+    .chart-placeholder { height: 200px; background-color: #eaf1f7; border-radius: 8px; margin-top: 20px; display: flex; align-items: center; justify-content: center; color: #7f8c8d; font-weight: 600; }
+
+    /* 외부 링크 강조 */
+    .external-link { color: #e74c3c; text-decoration: none; font-weight: 600; }
+    .external-link:hover { text-decoration: underline; }
+
+    /* 모바일 반응형 */
+    @media (max-width: 768px) {
+      main { padding: 0 15px; }
+      h1 { font-size: 2em; }
+      nav ul { flex-wrap: wrap; justify-content: center; }
+      section { padding: 20px; }
+      table, th, td { display: block; width: 100%; box-sizing: border-box; }
+      th { background-color: #f0f4f7; border-bottom: none; }
+      tr { margin-bottom: 15px; display: block; border: 1px solid #ecf0f1; border-radius: 8px; overflow: hidden; }
+      td { border: none; text-align: left; position: relative; padding-left: 50%; }
+      td:before { content: attr(data-label); position: absolute; left: 10px; font-weight: 600; color: #555; }
+      tr:nth-child(even) { background-color: #ffffff; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <h1>차량 리스 비교견적 센터</h1>
+    <p style="text-align: center; color: #555;">개인 및 법인 사업자 대상, 합리적인 신차 이용을 위한 올인원 솔루션</p>
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+      <ul>
+        <li><a href="#intro">리스란?</a></li>
+        <li><a href="#comparison">리스 vs 장기렌트</a></li>
+        <li><a href="#cost">비용/견적 분석</a></li>
+        <li><a href="#models">추천 모델</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">견적 요청</a></li>
+      </ul>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  </header>
+
+  <!-- 메인 콘텐츠 영역 -->
+  <main>
+    <!-- 인트로 및 핵심 요약 -->
+    <section id="intro">
+      <h2>차량 리스, 2026년 신차 구매의 새로운 기준</h2>
+      <p>최근 신차 구매 방식이 다양해지면서 <strong>차량 리스</strong>와 <strong>장기렌트</strong>에 대한 관심이 높아지고 있습니다. 특히 2026년도 시장에서는 금리 변동성 및 정부 정책 변화에 따라 현명한 차량 이용 방법을 찾는 소비자들이 증가하고 있습니다. 차량 리스는 초기 비용 부담을 최소화하면서 원하는 차량을 일정 기간 동안 이용하고 계약 만료 후 반납 또는 인수를 선택할 수 있는 선진적인 금융 상품입니다. 저희 센터에서는 수많은 리스 전문 업체의 상품을 <strong>순위 비교</strong>하고 고객 맞춤형 <strong>견적</strong>을 제공하여 <strong>저렴한곳</strong>을 찾아드립니다.</p>
+
+      <h3>"함께 많이 찾는" 키워드 분석 및 가이드</h3>
+      <ul class="keyword-list">
+        <li>#차량리스비용</li>
+        <li>#장기렌트장단점</li>
+        <li>#신차리스할인</li>
+        <li>#법인차량리스</li>
+        <li>#개인사업자혜택</li>
+        <li>#무보증리스</li>
+        <li>#초기비용없이</li>
+        <li>#리스업체순위</li>
+        <li>#내돈내산후기</li>
+        <li>#리스견적비교</li>
+      </ul>
+
+      <p class="content-block">
+        <strong>리스를 선택해야 하는 이유:</strong> 리스는 <strong>초기 비용</strong>이 낮거나 아예 없는 <strong>무보증 상품</strong>이 많아 목돈 부담을 줄여줍니다. 또한, 개인사업자나 법인사업자의 경우 월 리스료 전액을 손비 처리하여 <strong>절세 효과</strong>를 극대화할 수 있습니다. 최근 <strong>2026년</strong> 금융 트렌드에 맞춰 다양한 <strong>신규 가입 혜택</strong>과 <strong>현금지원</strong> 프로모션이 활발해지고 있어, 일반 할부 구매 대비 <strong>저렴한</strong> 가격으로 신차를 이용할 수 있는 기회입니다.
+      </p>
+      <div class="cta-actions" style="text-align: center; margin-top: 30px;">
+        <a href="#contact" class="cta-button">무료 견적 상담 받기</a>
+      </div>
+    </section>
+
+    <!-- 서비스 상세 비교 섹션 -->
+    <section id="comparison">
+      <h2>리스 vs. 장기렌트 vs. 할부: 장단점 및 차이점 심층 분석</h2>
+      <p>신차를 구매하는 방식에는 크게 <strong>할부(현금) 구매</strong>, <strong>차량 리스</strong>, <strong>장기렌트</strong> 세 가지가 있습니다. 각 방식은 명확한 <strong>장단점</strong>과 <strong>차이점</strong>을 가지고 있으며, 고객님의 상황(개인/법인, 운행 거리, 초기 자금 여력)에 따라 가장 합리적인 선택이 달라집니다.</p>
+
+      <h3>차량 이용 방식별 비교 (2026년 기준)</h3>
+      <table data-label="비교표">
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>차량 리스 (Lease)</th>
+            <th>장기렌트 (Rental)</th>
+            <th>할부 구매 (Purchase)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="차량 명의">차량 명의</td>
+            <td>리스사 명의 (이용자: 채무자)</td>
+            <td>렌트사 명의 (이용자: 임차인)</td>
+            <td>고객 명의 (이용자: 소유자)</td>
+          </tr>
+          <tr>
+            <td data-label="번호판">번호판</td>
+            <td>일반 승용차 번호판 (하, 호, 허 제외)</td>
+            <td>렌터카 전용 번호판 (하, 호, 허)</td>
+            <td>일반 승용차 번호판</td>
+          </tr>
+          <tr>
+            <td data-label="보험 처리">보험 처리</td>
+            <td>개인 보험 가입 (경력 인정)</td>
+            <td>렌트사 보험 가입 (보험료 포함)</td>
+            <td>개인 보험 가입</td>
+          </tr>
+          <tr>
+            <td data-label="세금 절감 효과">세금 절감 효과</td>
+            <td>개인/법인사업자: 월 리스료 전액 비용처리 (연간 한도 1,000만~1,500만 원)</td>
+            <td>개인/법인사업자: 월 렌트료 전액 비용처리 (경차, 화물차 제외)</td>
+            <td>감가상각 비용 처리</td>
+          </tr>
+          <tr>
+            <td data-label="초기 비용">초기 비용</td>
+            <td>보증금 (0~40%) 또는 선납금, 무보증 상품 가능</td>
+            <td>보증금 (0~40%) 또는 보증보험, 무보증 상품 가능</td>
+            <td>선수금 (0~100%), 취득세, 공채 등 발생</td>
+          </tr>
+          <tr>
+            <td data-label="계약 만료 시">계약 만료 시</td>
+            <td>인수, 반납, 재리스 선택</td>
+            <td>인수, 반납 선택</td>
+            <td>소유권 유지</td>
+          </tr>
+          <tr>
+            <td data-label="주행거리">주행거리</td>
+            <td>약정 주행거리 초과 시 위약금 발생</td>
+            <td>약정 주행거리 초과 시 위약금 발생 (대부분 리스와 동일)</td>
+            <td>주행거리 무제한</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>어떤 선택이 합리적일까요?</h3>
+      <p>
+        <strong>개인 사업자 또는 법인:</strong> 차량 리스 상품이 가장 유리할 수 있습니다. <strong>사업자 리스</strong>는 월 리스료를 비용 처리하여 세금 부담을 크게 줄일 수 있으며, 보험 경력이 유지되므로 향후 자차 구매 시 유리합니다. 특히 <strong>저렴한곳</strong>의 <strong>리스료</strong>를 찾아서 <strong>신규 가입 혜택</strong>을 잘 활용한다면, 할부 구매 대비 월 부담 <strong>금액</strong>이 크게 줄어듭니다.
+      </p>
+      <p>
+        <strong>장거리 운행이 잦은 개인:</strong> 장기렌트가 유리할 수 있습니다. 장기렌트는 보험료와 자동차세가 월 렌트료에 포함되어 있고, 보험 할증이나 사고로 인한 보험료 인상 부담이 없다는 <strong>장점</strong>이 있습니다. 하지만 일반 번호판을 사용할 수 없는 <strong>단점</strong>이 있습니다.
+      </p>
+
+      <div class="chart-placeholder">
+        <p>※ 2026년 차량 유형별 리스 수요 변화 그래프 (Placeholder)</p>
+      </div>
+    </section>
+
+    <!-- 비용 및 견적 분석 섹션 -->
+    <section id="cost">
+      <h2>차량 리스 비용 분석: 예상 견적, 가격 결정 요인 및 할인 혜택</h2>
+      <p>차량 리스 <strong>견적</strong>을 결정하는 요소는 여러 가지가 있습니다. 단순히 월 <strong>가격</strong>만 비교하기보다는 총 이용 기간 동안의 <strong>비용</strong>과 <strong>장단점</strong>을 고려해야 합니다. 주요 요인으로는 차량 가격, 잔존가치, 리스 기간, 금리, 보증금/선납금이 있습니다.</p>
+
+      <h3>리스료 산출 방식 이해하기</h3>
+      <p class="content-block">
+        <strong>리스료 = (차량 가격 - 잔존가치) / 리스 기간 + 금리 및 부대 비용</strong><br>
+        <strong>잔존가치 (Residual Value):</strong> 계약 만기 시점의 예상 중고차 가격입니다. 잔존가치가 높을수록 월 납입료가 낮아집니다. <strong>리스료</strong>를 <strong>저렴한곳</strong>에서 찾으려면 잔존가치를 높게 설정하는 것이 유리하지만, 계약 만료 후 인수를 고려한다면 인수 시점의 추가 비용(인수금)이 높아지는 <strong>단점</strong>을 고려해야 합니다.
+      </p>
+
+      <h3>주요 차종별 리스 예상 견적 (2026년 기준)</h3>
+      <p>아래 <strong>가격대</strong>는 보증금 20%, 48개월 계약 조건의 <strong>평균</strong>적인 <strong>예상 비용</strong>입니다. 정확한 <strong>견적</strong>은 개인 신용도 및 업체별 <strong>할인</strong> 프로모션에 따라 달라질 수 있습니다.</p>
+      <table data-label="모델별 예상 견적">
+        <thead>
+          <tr>
+            <th>차종</th>
+            <th>차량 가격대 (원)</th>
+            <th>예상 월 리스료 (원)</th>
+            <th>주요 특징</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="차종">현대 아반떼 (CN7)</td>
+            <td data-label="가격대">2,000만 ~ 2,500만</td>
+            <td data-label="예상 월 리스료">30만 ~ 40만</td>
+            <td data-label="주요 특징">사회 초년생, 가성비 리스 <strong>추천</strong></td>
+          </tr>
+          <tr>
+            <td data-label="차종">기아 쏘렌토 (MQ4)</td>
+            <td data-label="가격대">3,500만 ~ 4,500만</td>
+            <td data-label="예상 월 리스료">50만 ~ 70만</td>
+            <td data-label="주요 특징">패밀리 SUV, 높은 잔존가치</td>
+          </tr>
+          <tr>
+            <td data-label="차종">제네시스 G80</td>
+            <td data-label="가격대">5,500만 ~ 7,000만</td>
+            <td data-label="예상 월 리스료">80만 ~ 110만</td>
+            <td data-label="주요 특징">법인 임원, 고급 세단 <strong>추천</strong></td>
+          </tr>
+          <tr>
+            <td data-label="차종">BMW 5 Series (G60)</td>
+            <td data-label="가격대">7,000만 ~ 9,000만</td>
+            <td data-label="예상 월 리스료">100만 ~ 140만</td>
+            <td data-label="주요 특징">수입차 엔트리, <strong>현금지원</strong> 프로모션 활발</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>최적의 리스 견적을 위한 팁</h3>
+      <ul>
+        <li><strong>보증금 vs. 선납금:</strong> 보증금은 계약 만료 시 돌려받는 금액이며, 선납금은 미리 내는 월 리스료입니다. <strong>현금지원</strong> 혜택을 받기 위해서는 선납금 비중을 조절하는 것이 유리할 수 있습니다.</li>
+        <li><strong>리스 딜러 비교:</strong> <strong>전문 업체</strong>마다 제시하는 <strong>금액</strong>과 <strong>할인</strong>율이 다릅니다. 여러 곳의 <strong>견적</strong>을 <strong>비교</strong>하고 <strong>순위</strong>가 높은 곳을 선택하는 것이 중요합니다.</li>
+        <li><strong>2026년 신차 혜택:</strong> 2026년에는 특정 모델의 재고 소진을 위한 <strong>이벤트</strong>와 <strong>사은품</strong> 증정 행사가 많이 진행됩니다. 이를 잘 활용하면 초기 <strong>가입 비용</strong>을 줄일 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <!-- 추천 모델 및 키워드 상세 통합 섹션 -->
+    <section id="models">
+      <h2>2026년 인기 차종별 리스 상품 추천</h2>
+      <p>고객님들이 가장 많이 찾는 국산차 및 수입차 모델별로 리스 상품을 분석하고, <strong>내돈내산 후기</strong>를 바탕으로 각 모델의 <strong>장단점</strong>을 정리했습니다.</p>
+
+      <h3>[국산차] 가성비 모델부터 고급 세단까지</h3>
+      <div class="content-block">
+        <strong>1. 준중형 세단: 아반떼 (CN7)</strong>
+        <p><strong>아반떼 리스</strong>는 사회 초년생이나 세컨드 카를 찾는 분들께 <strong>추천</strong>하는 대표적인 모델입니다. 낮은 차량 <strong>가격</strong>으로 <strong>예상 월 리스료</strong>가 저렴하게 형성되며, <strong>신규 가입 혜택</strong>으로 <strong>현금지원</strong>을 받아 초기 비용 부담을 최소화할 수 있습니다. <strong>장점</strong>으로는 연비가 뛰어나고 유지비가 적다는 점이 있으며, <strong>단점</strong>은 좁은 실내 공간입니다.</p>
+
+        <strong>2. 중형 세단: 쏘나타 (DN8) vs. K5 (DL3)</strong>
+        <p><strong>쏘나타 리스</strong>와 <strong>K5 리스</strong>는 중형 세단 시장의 양대 산맥입니다. <strong>쏘나타</strong>는 안정적이고 고급스러운 디자인으로 <strong>법인 사업자</strong>에게 인기가 많고, <strong>K5</strong>는 스포티한 디자인으로 젊은 층에게 인기가 높습니다. 두 모델 모두 <strong>차량 리스</strong>로 계약할 경우 <strong>장기렌트</strong> 대비 <strong>저렴한</strong> <strong>가격</strong>으로 이용이 가능하며, <strong>차이점</strong>은 개인의 취향에 따라 갈립니다. <strong>내돈내산 후기</strong>를 보면 K5의 디자인 만족도가 높지만, 쏘나타의 상품성이 꾸준히 개선되고 있습니다.</p>
+
+        <strong>3. 준대형 세단: 그랜저 (GN7) vs. K8 (GL3)</strong>
+        <p>국산 준대형 세단은 <strong>그랜저 리스</strong>와 <strong>K8 리스</strong>가 시장을 주도하고 있습니다. <strong>그랜저</strong>는 고급스러움과 첨단 기술로 <strong>가성비</strong>가 뛰어나다는 평가를 받습니다. <strong>K8</strong>은 스포티한 디자인과 뛰어난 승차감으로 <strong>추천</strong>됩니다. <strong>차량리스</strong>로 구매할 경우 월 <strong>비용</strong> 부담이 줄어들어 <strong>신규 가입</strong> 고객에게 <strong>혜택</strong>이 집중됩니다.</p>
+      </div>
+
+      <h3>[SUV/RV] 패밀리카 및 다목적 차량</h3>
+      <div class="content-block">
+        <p><strong>1. 준중형 SUV: 투싼 (NX4) vs. 스포티지 (NQ5)</strong><br>
+          <strong>투싼 리스</strong>와 <strong>스포티지 리스</strong>는 넉넉한 공간과 실용성으로 인기가 높습니다. 특히 <strong>스포티지</strong>는 <strong>2026년</strong> 모델이 출시되면서 디자인과 성능이 향상되어 <strong>내돈내산 후기</strong>가 긍정적입니다. <strong>차량리스</strong>를 통해 <strong>신차</strong>를 이용할 경우 초기 <strong>가격</strong> 부담이 적고, <strong>장점</strong>으로는 넓은 적재 공간이 있습니다.</p>
+        <p><strong>2. 중형 SUV: 싼타페 (MX5) vs. 쏘렌토 (MQ4)</strong><br>
+          <strong>싼타페 리스</strong>와 <strong>쏘렌토 리스</strong>는 치열한 경쟁을 벌이고 있습니다. <strong>싼타페</strong>는 신형 모델 출시로 디자인이 완전히 바뀌었고, <strong>쏘렌토</strong>는 높은 잔존가치와 안정적인 인기를 자랑합니다. <strong>리스</strong>로 구매하면 <strong>보관서비스</strong>가 필요 없는 대신, 약정 주행거리를 초과하지 않도록 주의해야 합니다.</p>
+        <p><strong>3. 대형 SUV/RV: 팰리세이드 (LX2) vs. 카니발 (KA4)</strong><br>
+          <strong>팰리세이드 리스</strong>와 <strong>카니발 리스</strong>는 가족 여행이나 업무용으로 활용도가 높습니다. <strong>카니발 리스</strong>는 <strong>사업자 리스</strong>로 <strong>추천</strong>되는 모델 중 하나입니다. <strong>현금지원</strong> 프로모션이나 <strong>할인</strong> 혜택을 통해 <strong>저렴한곳</strong>을 찾는 것이 중요합니다.</p>
+      </div>
+
+      <h3>[고급차] 제네시스 및 수입차 리스 상품</h3>
+      <div class="content-block">
+        <p><strong>1. 제네시스 G80/GV70/GV80 리스</strong><br>
+          <strong>제네시스 리스</strong>는 <strong>법인</strong>이나 전문직 종사자에게 <strong>추천</strong>되는 고급 브랜드입니다. <strong>G80 리스</strong>는 럭셔리 세단의 대명사이며, <strong>GV70 리스</strong>와 <strong>GV80 리스</strong>는 고급 SUV 시장을 이끌고 있습니다. <strong>장점</strong>은 품격 있는 이미지와 뛰어난 성능이며, <strong>단점</strong>은 유지보수 비용입니다. <strong>리스 전문 업체</strong>에서는 <strong>신규 가입</strong> 고객에게 <strong>특별 혜택</strong>을 제공합니다.</p>
+        <p><strong>2. 수입차: BMW 5시리즈, 벤츠 E-클래스 리스</strong><br>
+          <strong>BMW 리스</strong>와 <strong>벤츠 리스</strong>는 수입차 시장의 핵심입니다. <strong>5시리즈 리스</strong>와 <strong>E-클래스 리스</strong>는 경쟁이 치열한 만큼 다양한 <strong>할인</strong> 프로모션과 <strong>현금지원</strong> <strong>이벤트</strong>가 많습니다. <strong>가격</strong> <strong>차이점</strong>은 옵션과 모델 연식에 따라 크게 달라지므로 <strong>견적</strong>을 꼼꼼히 <strong>비교</strong>해야 합니다.</p>
+      </div>
+    </section>
+
+    <!-- FAQ 섹션 -->
+    <section id="faq">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <div class="item">
+        <h3>Q1: 차량 리스와 장기렌트, 어떤 것을 선택해야 할까요?</h3>
+        <p class="content-block">A: 가장 큰 <strong>차이점</strong>은 '번호판'과 '보험'입니다. 일반 번호판을 원하거나 개인 보험 경력을 유지하고 싶다면 <strong>차량 리스</strong>를 <strong>추천</strong>합니다. 보험료 할증 걱정 없이 운행하고 싶다면 <strong>장기렌트</strong>가 <strong>장점</strong>을 가집니다. 법인/개인사업자의 경우 <strong>절세 효과</strong>는 두 상품 모두 비슷하나, 리스가 일반적으로 더 고급 차량을 선택하는 경향이 있습니다.</p>
+      </div>
+      <div class="item">
+        <h3>Q2: 초기 비용 없는 무보증 리스도 가능한가요?</h3>
+        <p class="content-block">A: 예, 고객님의 신용도에 따라 <strong>무보증 리스</strong> 상품 <strong>가입</strong>이 가능합니다. <strong>신규 가입</strong> 심사는 <strong>리스 전문 업체</strong>마다 기준이 다르므로, 여러 <strong>업체</strong>의 <strong>순위</strong>와 심사 기준을 <strong>비교</strong>하여 <strong>저렴한곳</strong>을 찾는 것이 중요합니다. 저희 센터에서 고객님의 조건에 맞는 <strong>무보증 상품</strong>을 안내해 드립니다.</p>
+      </div>
+      <div class="item">
+        <h3>Q3: 리스 계약 만기 시 차량 인수가 무조건 유리한가요?</h3>
+        <p class="content-block">A: 만기 시점의 차량 상태와 중고차 시세를 고려해야 합니다. 만기 <strong>가격</strong>(잔존가치)이 높게 책정되어 있다면 <strong>인수</strong> 시 추가 <strong>비용</strong>이 발생합니다. 중고차 시세가 리스 계약 시 정해진 잔존가치보다 높으면 인수하여 판매하는 것이 유리할 수 있습니다. <strong>장단점</strong>을 면밀히 분석하고 결정해야 합니다.</p>
+      </div>
+      <div class="item">
+        <h3>Q4: 리스 중도 해지 시 위약금은 얼마나 되나요?</h3>
+        <p class="content-block">A: <strong>차량 리스</strong> 중도 해지는 원칙적으로 위약금이 발생합니다. 계약 기간이 길어질수록 위약금 <strong>비용</strong>이 감소하며, 보통 남은 기간 총 리스료의 20~40% 수준입니다. 따라서 계약 전 <strong>장기렌트</strong>와 <strong>리스</strong>의 <strong>장단점</strong>을 신중하게 <strong>비교</strong>하고 계약 기간을 설정해야 합니다.</p>
+      </div>
+    </section>
+
+    <!-- 외부 신뢰성 링크 -->
+    <section>
+      <h2>공신력 있는 외부 정보 참고</h2>
+      <p>더 자세한 차량 금융 정보 및 통계는 아래 외부 기관을 참고하시기 바랍니다.</p>
+      <ul>
+        <li><a class="external-link" href="https://namu.wiki/w/%EC%B0%A8%EB%9F%89%EB%A6%AC%EC%8A%A4" target="_blank">나무위키 - 차량 리스 (Car Lease)</a></li>
+        <li><a class="external-link" href="https://www.fss.or.kr/" target="_blank">금융감독원 (FSS) - 금융 소비자 정보</a></li>
+        <li><a class="external-link" href="https://www.motie.go.kr/" target="_blank">산업통상자원부 - 자동차 산업 동향 (2026년)</a></li>
+        <li><a class="external-link" href="https://www.kofia.or.kr/" target="_blank">금융투자협회 (KOFIA) - 금융 통계</a></li>
+        <li><a class="external-link" href="https://www.card-fs.or.kr/" target="_blank">여신금융협회 - 여신금융 동향</a></li>
+      </ul>
+    </section>
+
+    <!-- 견적 요청 폼 섹션 -->
+    <section id="contact">
+      <h2>1:1 맞춤형 무료 견적 요청</h2>
+      <p>고객님의 조건에 맞는 <strong>최저가 리스 견적</strong>을 비교해 드립니다. 아래 정보를 입력해 주시면 전문 상담원이 빠르고 친절하게 안내해 드립니다. <strong>차량리스</strong>와 <strong>장기렌트</strong> <strong>가격</strong> <strong>차이점</strong>을 상세히 비교해 드립니다. <strong>신규 가입 혜택</strong>과 <strong>현금지원</strong> 프로모션도 놓치지 마세요!</p>
+
+      <form action="/submit-quote" method="post">
+        <div class="form-group">
+          <label for="name">이름</label>
+          <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+        </div>
+        <div class="form-group">
+          <label for="phone">연락처</label>
+          <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+        </div>
+        <div class="form-group">
+          <label for="carModel">희망 차종 (30개 이상 키워드 반영)</label>
+          <select id="carModel" name="carModel">
+            <option value="">차종을 선택해 주세요</option>
+            <optgroup label="국산 세단/RV">
+              <option value="아반떼">현대 아반떼 리스</option>
+              <option value="쏘나타">현대 쏘나타 리스</option>
+              <option value="그랜저">현대 그랜저 리스</option>
+              <option value="제네시스G80">제네시스 G80 리스</option>
+              <option value="K3">기아 K3 리스</option>
+              <option value="K5">기아 K5 리스</option>
+              <option value="K8">기아 K8 리스</option>
+              <option value="G70">제네시스 G70 리스</option>
+              <option value="G90">제네시스 G90 리스</option>
+            </optgroup>
+            <optgroup label="국산 SUV">
+              <option value="투싼">현대 투싼 리스</option>
+              <option value="싼타페">현대 싼타페 리스</option>
+              <option value="팰리세이드">현대 팰리세이드 리스</option>
+              <option value="코나">현대 코나 리스</option>
+              <option value="스포티지">기아 스포티지 리스</option>
+              <option value="쏘렌토">기아 쏘렌토 리스</option>
+              <option value="셀토스">기아 셀토스 리스</option>
+              <option value="카니발">기아 카니발 리스</option>
+              <option value="GV70">제네시스 GV70 리스</option>
+              <option value="GV80">제네시스 GV80 리스</option>
+            </optgroup>
+            <optgroup label="수입차">
+              <option value="BMW5">BMW 5시리즈 리스</option>
+              <option value="BMW3">BMW 3시리즈 리스</option>
+              <option value="벤츠E클래스">벤츠 E-클래스 리스</option>
+              <option value="벤츠C클래스">벤츠 C-클래스 리스</option>
+              <option value="아우디A6">아우디 A6 리스</option>
+              <option value="아우디A4">아우디 A4 리스</option>
+              <option value="테슬라모델3">테슬라 모델3 리스</option>
+              <option value="테슬라모델Y">테슬라 모델Y 리스</option>
+              <option value="렉서스ES">렉서스 ES 리스</option>
+              <option value="볼보S90">볼보 S90 리스</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="carType">희망 계약 유형</label>
+          <select id="carType" name="carType">
+            <option value="리스">차량 리스</option>
+            <option value="장기렌트">장기렌트</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="userType">이용자 구분</label>
+          <select id="userType" name="userType">
+            <option value="개인">개인</option>
+            <option value="개인사업자">개인사업자</option>
+            <option value="법인사업자">법인사업자</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="details">상세 문의 사항 (희망 견적 조건, 초기 비용, <strong>현금지원</strong>, <strong>사은품</strong> 등)</label>
+          <textarea id="details" name="details" rows="5" placeholder="예: 무보증 리스 견적 문의합니다. 리스 기간 48개월로 희망하며, <strong>최저가</strong> 견적 <strong>비교</strong>해 주세요."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="cta-button">무료 견적 요청하기</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+
+  
